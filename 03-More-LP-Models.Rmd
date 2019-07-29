@@ -230,7 +230,7 @@ results.products <- matrix (results.products,
                             nrow = 1, ncol=NProd,
                             dimnames=c(c("x"),ProdNames))  
                             # Resizes and renames 
-grid.table(results.products)
+grid.table(format(head(results.products),digits=4))
 ```
 ```{marginfigure}
 **Table 3.5**: Optimal Production Plan
@@ -257,7 +257,7 @@ ResourceSlacks <- cbind (Results.Resources,
                          Available,
                          Available-Results.Resources)
 colnames(ResourceSlacks)<-c("Used", "Available", "Slack")      
-grid.table(ResourceSlacks)
+grid.table(format(head(ResourceSlacks),digits=4))
 ```
 ```{marginfigure}
 **Table 3.6**: Resources Used
@@ -338,12 +338,12 @@ $$
  \begin{split}
  \begin{aligned}
     \text{Max  } \\
-               & 20*Chairs+14*Desks+16*Tables \\
+               & 20Chairs+14Desks+16Tables \\
     \text{S.t.} \\
-                       & 6*Chairs+2*Desks+4*Tables \leq 2000 \\
-                       & 8*Chairs+6*Desks+4*Tables \leq 2000 \\
-                       & 6*Chairs+4*Desks+8*Tables \leq 1440 \\
-                       & 40*Chairs+25*Desks+16*Tables \leq 9600 \\
+                       & 6Chairs+2Desks+4Tables \leq 2000 \\
+                       & 8Chairs+6Desks+4Tables \leq 2000 \\
+                       & 6Chairs+4Desks+8Tables \leq 1440 \\
+                       & 40Chairs+25Desks+16Tables \leq 9600 \\
                        & Tables \leq 200 \\
                        & Chairs,  \; Desks, \; Tables \geq 0  
   \end{aligned}
@@ -415,13 +415,13 @@ $$
  \begin{split}
  \begin{aligned}
     \text{Max:} & \\
-                & 20*Chairs+14*Desks+16*Tables \\
+                & 20Chairs+14Desks+16Tables \\
     \text{S.t.} & \\
-                       & 6*Chairs+2*Desks+4*Tables \leq 2000 \\
-                       & 8*Chairs+6*Desks+4*Tables \leq 2000 \\
-                       & 6*Chairs+4*Desks+8*Tables \leq 1440 \\
-                       & 40*Chairs+25*Desks+16*Tables \leq 9600 \\
-                       & 0.6*Chairs-0.4*Desks-0.4*Tables \leq 0 \\
+                       & 6Chairs+2Desks+4Tables \leq 2000 \\
+                       & 8Chairs+6Desks+4Tables \leq 2000 \\
+                       & 6Chairs+4Desks+8Tables \leq 1440 \\
+                       & 40Chairs+25Desks+16Tables \leq 9600 \\
+                       & 0.6Chairs-0.4Desks-0.4*Tables \leq 0 \\
                        & Tables \leq 200 \\
                        & Chairs,  \; Desks, \; Tables \geq 0  
   \end{aligned}
@@ -467,7 +467,7 @@ $$
  \begin{aligned}
     \text{Max:}  &  \sum_{i=1}^3 P_i x_i \\
     \text{S.t.} \\ & 
-                \sum_{i=1}^3 R_{i,j} x_i \leq A_j \forall \; j\\
+                \sum_{i=1}^3 R_{i,j} x_i \leq A_j \; \forall \; j\\
                 & x_i \geq 0  \; \forall \; i
   \end{aligned}
   \end{split}
@@ -486,7 +486,7 @@ $$
  \begin{split}
  \begin{aligned}
     \text{Min:}   &  \sum_{i=1}^3 C_i x_i \\
-    \text{S.t.} & \sum_{i=1}^3 A_{i,j}x_i \geq R_j \forall \; j\\
+    \text{S.t.} & \sum_{i=1}^3 A_{i,j}x_i \geq R_j \; \forall \; j\\
                        & x_i \geq 0  \; \forall \; i
   \end{aligned}
   \end{split}
@@ -596,7 +596,7 @@ $$
 ```{marginfigure}
 **Formula 3.7**: Base Case for Transportation model  
 ```
-If we simply run this model, as is, the minimum cost plan would be to simply not do any thing!  The cost would be zero.  What we want to do is instead determine if the problem is supply limited or demand limited.  This is a simple matter of comparing the net demand vs. the net supply and making sure that the lesser is satisfied completely.
+If we simply run this model, as is, the minimum cost plan would be to just do nothing! The cost would be zero. In reality, even though we are focused on costs in this application, there is an implied revenue and therefore profit (we hope!) that we aren't directly modeling.  We are likely to instead be wanting to ship all of the product that we can at the lowest possible cost. More precisely, what we want to do is instead determine if the problem is supply limited or demand limited. This is a simple matter of comparing the net demand vs. the net supply and making sure that the lesser is satisfied completely.
 \vspace{12pt}
 
 |If...                           | Then Situation is: | Source Constraints            | Demand Constraints         |
@@ -667,6 +667,7 @@ Four manufacturing plants are supplying material for distributors in four region
 |  Eugene     |   8  |  10  |  22  | 28   | **500**  |
 |  Dallas     |  16  |  26  |  15  |  5   | **600**  |
 |**Capacity** | *700*| *500*| *500*| *600*|          |
+
 ```  
 ```{marginfigure}
 **Table 3.12**: Transportation cost between cities  
@@ -701,12 +702,12 @@ $$
  \begin{split}
  \begin{aligned}
     \text{Max:} & \\
-                & Profit=20*Chairs+10*Desks+16*Tables \\
+                & Profit=20Chairs+10Desks+16Tables \\
     \text{S.t.} & \\
-                & 6*Chairs+3*Desks+4*Tables \leq 2000 \\
-                & 8*Chairs+4*Desks+4*Tables \leq 2000 \\
-                & 6*Chairs+3*Desks+8*Tables \leq 1440 \\
-                & 40*Chairs+20*Desks+16*Tables \leq 9600 \\
+                & 6Chairs+3Desks+4Tables \leq 2000 \\
+                & 8Chairs+4Desks+4Tables \leq 2000 \\
+                & 6Chairs+3Desks+8Tables \leq 1440 \\
+                & 40Chairs+20Desks+16Tables \leq 9600 \\
                 & Tables  \leq 200 \\
                 & Chairs, Desks, Tables \geq 0  
   \end{aligned}
