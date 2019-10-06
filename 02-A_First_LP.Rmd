@@ -5,12 +5,12 @@ header-includes:
 - \usepackage{caption}
 monofont: Times New Roman
 output:
+  tufte::tufte_html: default
   tufte::tufte_handout:
     citation_package: natbib
     latex_engine: xelatex
     toc: TRUE
     number_sections: true
-  tufte::tufte_html: default
   tufte::tufte_book:
     citation_package: natbib
     latex_engine: xelatex
@@ -39,22 +39,23 @@ Linear programming is a tool for optimization.  It is a widely used tool for pla
 
 ## Two Variable Base Case
 
-This data and case is drawn from an example in Chapter 2 of Kenneth Baker's *Optimization Modeling with Spreadsheets*, 3rd Edition. The example is a modification of the example 2.1 on page 29.     
+This data and case is drawn from an example in Chapter 2 of Kenneth Baker's *Optimization Modeling with Spreadsheets*, 3rd Edition. The example is a modification of the example 2.1 on page 29.    \vspace{12pt}  
 The goal of the furniture manufacturer in this case is to find the best product mix of Chairs and Desks.   \vspace{12pt}
 
-Making a piece of furniture requires time in fabrication, assembly, and machining as a certain amount of wood. For example, a chair requires 6 hours of fabrication time, 8 hours of assembly, and 6 hours of machining. It uses 40 square feet of wood but the net profit is $20. The characteristics of desks are similar but different as shown in the Table 1 on the right as well as the available amount of each limited resource. 
+Making a piece of furniture requires time in fabrication, assembly, and machining as a certain amount of wood. For example, a chair requires 6 hours of fabrication time, 8 hours of assembly, and 6 hours of machining. It uses 40 square feet of wood but the net profit is $20. The characteristics of desks are similar but different as shown in the Table 1 on the right as well as the available amount of each limited resource.   \vspace{12pt}
 ```{marginfigure}
 | Characteristic | Chairs | Desks |  Available| 
 |---------------:|:-----:|:------:|:----------:|
 |  Profit        |  $20  |   $14  |            |
-|  Fabrication   |   6   |     2  |   1440     |
-|  Assembly      |   8   |     6  |   1440     |
-|  Machining     |   6   |     4  |   2000     |
+|  Fabrication   |   6   |     2  |   2000     |
+|  Assembly      |   8   |     6  |   2000     |
+|  Machining     |   6   |     4  |   1440     |
 |  Wood          |  40   |    25  |   9600     |
 ```
 ```{marginfigure}
 **Table 2.1**: Two variable base case
 ```
+
 A simple LP now is to find the production plan of products that results in the most profit. In order to do so, we need to define certain key items:
 
 * the goal(s)
@@ -62,19 +63,19 @@ A simple LP now is to find the production plan of products that results in the m
 * the limitations
 
 Let's start with the goal(s).  In this case, the production manager is simply trying to make as much profit as possible. While cost cutting is also a goal for many organizations, in this case and many applications profit maximization is appropriate. Maximizing profit is the referred to as the *objective* of the model.  \vspace{12pt}
-People new to linear programming will often think of the decisions as the amount of each resource to use. Instead, the decisions in this case would be how much to make of each particular product.  This drives the resource usage and the resource usage is a byproduct of these decisions. These decisions can take on a range of values and are therefore called *decision variables*.  
+People new to linear programming will often think of the decisions as the amount of each resource to use. Instead, the decisions in this case would be how much to make of each particular product.  This drives the resource usage and the resource usage is a byproduct of these decisions. These decisions can take on a range of values and are therefore called *decision variables*.    \vspace{12pt}
 
 ```{marginfigure}
 **Single-Objective**: This type of linear programming result when only one objective or goal can be accommodated. 
 ```
 
-The decision variables are then combined in some way to reflect the performance with respect to the organization's objective. The equation combining the decision variables to reflect this is then the *objective function*.  In general we will assume that there is a single objective function, at least for now.
+The decision variables are then combined in some way to reflect the performance with respect to the organization's objective. The equation combining the decision variables to reflect this is then the *objective function*.  In general we will assume that there is a single objective function, at least for now.    \vspace{12pt}
 
 ```{marginfigure}
 **Multiple-Objective**: This type of linear programming result when multiple objectives or goals can be accommodated. This will be explored in Chapter 7.
 ```
 
-Lastly, what is limiting the organization from even better performance?  There are typically many limits such as the number of customers, personnel, supplier capacity, etc.  In this case, we focus on a set of resource limits based on staffing in different centers and the supply of raw material (wood).  Since these limitations constrain the possible values of decision variables, they are called constraints.
+Lastly, what is limiting the organization from even better performance?  There are typically many limits such as the number of customers, personnel, supplier capacity, etc.  In this case, we focus on a set of resource limits based on staffing in different centers and the supply of raw material (wood).  Since these limitations constrain the possible values of decision variables, they are called _constraints._
 
 \vspace{12pt}
 Every optimization model can be thought of a collection of:
@@ -85,11 +86,12 @@ Every optimization model can be thought of a collection of:
 
 Let's put things together in the context of this application. In the base case, our objective function is to Maximize Profit. We can't express it though until we define our decision variables. It is good practice to very clearly and precisely define  decision variables. In this case it is straightforward but they can get much more complicated as we move into richer and larger models.     
 \vspace{12pt}
-Let's define them:     
+Let's define them:
+
 * Chairs = # of Chairs to Make     
 * Desks = # of Desks to Make
 
-\vspace{60pt}
+\vspace{24pt}
 
 Our objective function and constraints can now be written as the optimization model shown on the right.
 
@@ -111,6 +113,7 @@ $$
 ```{marginfigure}
 **Formula 2.1**: Optimization mode. Base equation with 2 variables
 ```
+\vspace{12pt}
 Note that since the objective function and each constraint is a simple linear function of the decision variables, this is what we call a *linear* programming model or LP for short. It would not be linear if any nonlinear function is made of the decision variables. For example, squaring a decision variable, using conditional logic based on the variable value, or multiplying two variables.  These and other issues would then require using nonlinear programming or NLP. NLP is also widely used but has limitations.
 ```{marginfigure}
 **Linear programming**: (LP, also called linear optimization) is a method to achieve the best outcome (such as maximum profit or lowest cost) in a mathematical model whose requirements are represented by linear relationships.
@@ -128,6 +131,8 @@ First, let us load the required libraries.  Then we will move on to the actual i
 ``` {r warning = FALSE, message = FALSE}
 library (pander, quietly = TRUE)   
    # Used for nicely formatted tables
+library (gridExtra, quietly=TRUE)
+   # Another nice option for tables
 library (ROI, quietly = TRUE)      
    # R Optimization Interface
 library (ROI.plugin.glpk, quietly = TRUE) 
@@ -137,21 +142,29 @@ library (ompr, quietly = TRUE)
 library (ompr.roi, quietly = TRUE) 
    # Glue for ompr to solve with ROI
 ```
-Each of these packages plays a role. As we discussed in the earlier chapter, pander makes for nicely formatted tables.  
 
-This brings us to four packages that provide the optimization functions that we be relying on frequently. The ROI package is the R Optimization Interface for for connecting various optimization solvers to R.  The ROI.plugin.glpk provides a connection between the the glpk solver and R through ROI.  While this would be sufficient, we are going to make use of the ompr package by Dirk Schumacher to provide algebraic representations for linear programs. The ompr package also requires a connector to ROI, aptly named ompr.roi.  \vspace{12pt}
+```{marginfigure}
+**quietly=TRUE**: This option will not display standard messages returned when loading libraries.
+```
 
+The first two packages: `pander` and `gridExtra`, provide nice formatting of tables.  \vspace{12pt}
+The following packages provide the optimization functions that we will be relying on frequently. The ROI package is the R Optimization Interface for for connecting various optimization solvers to R.  The ROI.plugin.glpk provides a connection between the the glpk solver and R through ROI.  While this would be sufficient, we are going to make use of the ompr package by Dirk Schumacher to provide algebraic representations for linear programs. The ompr package also requires a connector to ROI, aptly named ompr.roi.  \vspace{12pt}
 
-As noted earlier, if these packages are not preinstalled, you may need to install them using the install.packages function or from the Packages tab in RStudio.  \vspace{12pt}
+```{marginfigure}
+**HINT**: As noted earlier, if these packages are not preinstalled, you may need to install them using the install.packages function or from the Packages tab in RStudio.
+```
 
 Now we move on to implement and solve the linear program. Let's go through it step by step.  \vspace{12pt}
-
 
 ```{r base_case_no_pipes_step_1}
 model0  <- MIPModel()     # Initialize an empty model
 ```
 
 The first line initializes an empty model and stores it in `model0`.  We can see that the model is empty by simply displaying the model summary.
+
+```{marginfigure}
+**MIP**: The term MIP used in the function call is an acronym for Mixed Integer Program. This is a more general case of LP and will be discussed in greater detail later.
+```
 
 ```{r display_empty_model}
 model0
@@ -183,14 +196,14 @@ Now we move on to adding constraints.  \vspace{12pt}
 ```{r base_case_no_pipes_step_4}
 
 model0d<-add_constraint(model0c,6*Chairs+2*Desks<= 2000) 
-#fabrication
+  #fabrication
 model0e<-add_constraint(model0d,8*Chairs+6*Desks<= 2000)  
-#assembly
+  #assembly
 model0f<-add_constraint(model0e,6*Chairs+4*Desks<= 1440)  
-#machining
-model0g<-add_constraint(model0f, 40*Chairs + 25*Desks<= 9600) 
-#wood
-result0<-solve_model(model0g, with_ROI(solver = "glpk"))
+  #machining
+model0g<-add_constraint(model0f, 40*Chairs+25*Desks<= 
+                          9600) 
+  #wood
 
 ```
 
@@ -200,9 +213,8 @@ Notice that we do not need to include non-negativity constraints since they were
 model0g
 ```
 
-Our model has variables, constraints, and an objective function.  Let's go ahead and solve it. The LP can be solved using different LP engines - we'll use `glpk` for now. We'll assign the result of the solved model to `result0`
+Our model has variables, constraints, and an objective function.  Let's go ahead and solve it. The LP can be solved using different LP engines - we'll use `glpk` for now. We'll assign the result of the solved model to `result0`.
 
-nonlinear programming or NLP. NLP is also widely used but has limitations.
 ```{marginfigure}
 **glpk**: "GNU Linear Programming Kit" package is intended for solving large-scale linear programming (LP), mixed integer programming (MIP), and other related problems.
 ```
@@ -313,15 +325,15 @@ result0 <- MIPModel() %>%
   
 ```
 
-Note that we load a new package `magrittr` which gives us the piping function that simplifies model building. 
+Note that we load a new package `magrittr` which gives us the piping function that simplifies model building. \vspace{12pt}
 
 ```{marginfigure}
 **The magrittr package**, offers a set of operators which make your code more readable by:
   
-+structuring sequences of data operations left-to-right (as opposed to from the inside and out),
-+avoiding nested function calls,
-+minimizing the need for local variables and function definitions, and
-+making it easy to add steps anywhere in the sequence of operations.
++ structuring sequences of data operations left-to-right (as opposed to from the inside and out),
++ avoiding nested function calls,
++ minimizing the need for local variables and function definitions, and
++ making it easy to add steps anywhere in the sequence of operations.
 
 ```
 
@@ -350,23 +362,24 @@ print(get_solution(result0, Desks))
 
 ## Adding a Third Product (Variable)
 
-We will now extend the previous model to account for a third product, Tables.  The goal is now to find the best product mix of Chairs, Desks, and Tables. See the Table 2 with the summary of the new situation. 
+We will now extend the previous model to account for a third product, Tables.  The goal is now to find the best product mix of Chairs, Desks, and Tables. See the table to the right with a summary of the new situation.  
 ```{marginfigure}
-|Characteristic| Chairs| Desks | Tables |Available| 
+| | Chairs| Desks | Tables |Available| 
 |-------------:|:-----:|:-----:|:------:|:-------:|
 |  Profit      |  $20  |  $14  |  $16   |         |
-|  Fabrication |   6   |    2  |    4   |   1440  |
-|  Assembly    |   8   |    6  |    8   |   1440  |
-|  Machining   |   6   |    4  |   25   |   2000  |
+|  Fabrication |   6   |    2  |    4   |   2000  |
+|  Assembly    |   8   |    6  |    4   |   2000  |
+|  Machining   |   6   |    4  |    8   |   1440  |
 |  Wood        |  40   |   25  |   16   |   9600  |
 ```
 ```{marginfigure}
 **Table 2.3**: Three variable base case
 ```
+\vspace{12pt}
 There is an additional constraint that the number of Tables made (sold) can not exceed 200.
 
 A simple LP now is to find the production plan or amount of each of the  products that results in the most profit.  This will require a new decision variable, Tables, to be added to the model.
-
+\vspace{12pt}
 Let's extend our previous model.  Just to reinforce the point, it is an important habit to very clearly define the decision variables.
 
 * Chairs = # of Chairs to Make
@@ -393,6 +406,7 @@ $$
 ```{marginfigure}
 **Formula 2.2**: Optimization model adding a third product(variable)
 ```
+\vspace{12pt}
 Let's now implement the three variable case.  
 \vspace{12pt}
 
@@ -415,7 +429,7 @@ model1 <- MIPModel() %>%
   #machining
   add_constraint(40*Chairs + 25*Desks + 16*Tables<=9600)%>% 
   #wood
-  add_constraint(Tables <= 200)  #
+  add_constraint(Tables <= 200)
   
 result1 <-  solve_model(model1, with_ROI(solver="glpk"))
 ```
@@ -440,7 +454,6 @@ get_solution(result1, Tables)
 ```
 
 This is interesting - even though we added a new profitable product to our portfolio, the production decision stayed the same.  
-\vspace{12pt}
 
 ## Linear Programming Special Cases
 
@@ -451,12 +464,10 @@ There are several special cases where a linear program does not give the simple 
 * Redundant constraint
 * Unbounded solution
 
-  
 \vspace{12pt}
-Now, let's look at how we would modify the earlier formulation to come up with each of these situations.
+Now, let's look at how we would modify the earlier formulation to come up with each of these situations.\vspace{12pt}
 
-*Case 1: No Feasible Solution*
-
+*Case 1: No Feasible Solution*  \vspace{12pt}
 Let's assume that the sales manager comes in and says that we have a contractual requirement to deliver 300 Chairs to customers.
 \vspace{12pt}
 
@@ -469,7 +480,7 @@ $$
     \text{S.t.:} & \\
                   & 6Chairs+2Desks+4Tables \leq 2000 \\
                   & 8Chairs+6Desks+4Tables \leq 2000 \\
-                  & 6Chairs+5Desks+8Tables \leq 1440 \\
+                  & 6Chairs+4Desks+8Tables \leq 1440 \\
                   & 40Chairs+25Desks+16Tables \leq 9600 \\
                   & Tables \leq 200 \\
                   & Chairs \geq 300 \\
@@ -524,10 +535,10 @@ $$
  \begin{aligned}
     \text{Max: } & Profit=20Chairs+10Desks+16Tables \\
     \text{S.t.:} & \\
-                  & 6Chairs+3Desks+4Tables \leq 2000 \\
-                  & 8Chairs+4Desks+4Tables \leq 2000 \\
-                  & 6Chairs+3Desks+8Tables \leq 1440 \\
-                  & 40Chairs+20Desks+16Tables \leq 9600 \\
+                  & 6Chairs+2Desks+4Tables \leq 2000 \\
+                  & 8Chairs+6Desks+4Tables \leq 2000 \\
+                  & 6Chairs+4Desks+8Tables \leq 1440 \\
+                  & 40Chairs+25Desks+16Tables \leq 9600 \\
                   & Tables \leq 200 \\
                   & Chairs, Desks, Tables \geq 0  
   \end{aligned}
@@ -601,7 +612,7 @@ Which solution is the best? Within the limits of this problem, we can't distingu
 Also, it should be note that when there are two alternate optimal in a linear program with continuous variables, there is actually an infinite number of other optimal solutions between them.  
 \vspace{12pt}
 
-*Case 3: Redundant Constraint*
+*Case 3: Redundant Constraint*  \vspace{12pt}
 
 For the redundant constraint, a new constraint for painting is created.  Let's assume each item is painted and requires one gallon of paint. We have 1500 gallons. The corresponding constraint is then added to the model.
 ```{marginfigure}
@@ -612,7 +623,7 @@ $$
     \text{S.t.:} & \\
                     & 6Chairs+2Desks+4Tables \leq 2000 \\
                     & 8Chairs+6Desks+4Tables \leq 2000 \\
-                    & 6Chairs+5Desks+8Tables \leq 1440 \\
+                    & 6Chairs+4Desks+8Tables \leq 1440 \\
                     & 40Chairs+25Desks+16Tables \leq 9600 \\
                     & Chairs+Desks+Tables \leq 1500 \\
                     & Tables \leq 200 \\
@@ -630,7 +641,7 @@ Now we can implement the model.
 ```{r Redundant_Constraint_Model}
 model1redund <- add_constraint(model1, 
                           Chairs + Desks + Tables 
-                          >= 300)  
+                          <= 1500)  
           #THIS IS THE NEW CHANGE
 
 ```
@@ -657,11 +668,10 @@ Note that not all non-binding constraints at an optimal solution are redundant. 
 **Challenge 2:**  How would you modify the formulation to find the most pieces of furniture that could be produced?
 ```
   
-\vspace{12pt}
-
-*Case 4: Unbounded Solution*
+*Case 4: Unbounded Solution*  \vspace{12pt}
 
 As with other cases, there are multiple ways of triggering this condition.  For the unbounded solution, instead of at *most* a certain amount of resources can be used, the constraints are changed to at *least* that amount of each resource must be used.  This doesn't make a lot of sense in the setting of this application.  Perhaps a cynic would say that in a cost-plus business arrangement or a situation where the factory manager has a limited purview and doesn't see issues such as downstream demand limits and cost impacts, it results in this kind of myopic perspective. More commonly, an unbounded solution might be a sign that the analyst had simply reversed one or more inequalities or the form of the objective (max vs. min).
+
 ```{marginfigure}
 $$
  \begin{split}
@@ -670,7 +680,7 @@ $$
     \text{S.t.:} & \\
 &6Chairs+2Desks+4Tables \geq 2000 \\
 & 8Chairs+6Desks+4Tables \geq 2000 \\
-& 6Chairs+5Desks+8Tables \geq 1440 \\
+& 6Chairs+4Desks+8Tables \geq 1440 \\
 & 40Chairs+25Desks+16Tables \geq 9600 \\
 & Tables \geq 200 \\
 & Chairs, Desks, Tables \geq 0  
@@ -681,9 +691,9 @@ $$
 ```{marginfigure}
 **Formula 2.6**: Optimization model with an unbounded solution 
 ```
-
+\vspace{12pt}
 The implementation simply requires changing a < to a > for each constraint as well.
-
+\vspace{12pt}
 ```{r Unbounded_Model}
 result4 <- MIPModel() %>%
  add_variable(Chairs, type = "continuous", lb = 0) %>%
@@ -705,6 +715,9 @@ result4 <- MIPModel() %>%
   
  solve_model(with_ROI(solver = "glpk"))
 ```
+\vspace{12pt}
+Now let's see what is reported from trying to solve this model.
+\vspace{12pt}
 
 ```{r Unbounded_Results}
 print(solver_status(result4))
@@ -809,12 +822,12 @@ to result in a different production plan. Demonstrate
 how this affects the results.
 
 ```{marginfigure, fig.align='left', fig.width = 2}
-|Characteristic|Chairs|Desks|Frames|Tables|Available| 
+| |Chairs|Desks|Frames|Tables|Available| 
 |-------------:|:----:|:---:|:----:|:----:|:-------:|
 | Profit       | $20  | $14 |   $3 |  $16 |         |
-| Fabrication  |   6  |   2 |   1  |    4 |   1440  |
-| Assembly     |   8  |   6 |   1  |    8 |   1440  |
-| Machining    |   6  |   4 |   1  |   25 |   2000  |
+| Fabrication  |   6  |   2 |   1  |    4 |   2000  |
+| Assembly     |   8  |   6 |   1  |    4 |   2000  |
+| Machining    |   6  |   4 |   1  |    8 |   1440  |
 | Painting     |   7  |  10 |   2  |   12 |   1000  |
 | Wood         |  40  |  25 |   5  |   16 |   9600  |
 ```
@@ -867,7 +880,7 @@ $$
   \end{split}
 $$
 ```{marginfigure}
-**Formula 2.8**: Update formalation for constraint 1. 
+**Formula 2.8**: Update formalution for constraint 1. 
 ```
 We do the same thing for the second constraint.
 
@@ -875,7 +888,7 @@ We do the same thing for the second constraint.
 $$
  \begin{split}
  20x+25y \leq 3300 \\
- y \leq \frac{3300-25x}{25}\\
+ y \leq \frac{3300-20x}{25}\\
   \end{split}
   (\#eq:Constraint2)
 $$
@@ -975,7 +988,7 @@ At this point we have everything we need to see our results on a graph. There ar
 **ggplot** was written by [Hadley Wickham](http://hadley.nz/) to implement the [_Grammar of Graphics_](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448). That book is kind of expensive, a more affordable intro would be [Hadley's overview](http://vita.had.co.nz/papers/layered-grammar.pdf).
 ```
 
-In this example we are going to just scratch the surface of ggplot functionality, so know that if you study up a bit you can do much more!
+In this example we are going to just scratch the surface of _ggplot_ functionality, so know that if you study up a bit you can do much more!
 
 ```{r Plotting_Lines, fig.margin=TRUE}
 #make a plot with PSU colors for the lines!
@@ -996,7 +1009,7 @@ Now let's solve the model for real to see if it's right!
 ```{r Solving_Model}
 result0 <- MIPModel() %>%
   add_variable(R1, type = "continuous", lb = 0) %>%
-  add_variable(R2, type = "continuous",lb = 0) %>%
+  add_variable(R2, type = "continuous", lb = 0) %>%
  
   set_objective(150*R1 + 200*R2, "max") %>%
   
